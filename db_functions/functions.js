@@ -17,7 +17,16 @@ const getCandidateEvents = function(user_email, callback){
   });
 };
 
+const updateEvent = function(eventObj, callback){
+  Event.find({ id: event_id}, function(err, event){
+    if (err) return console.error(err);
+    console.log(events);
+    return callback(err, events);
+  })
+}
+
 module.exports = {
   createEvent,
-  getCandidateEvents
+  getCandidateEvents,
+  updateEvent
 }

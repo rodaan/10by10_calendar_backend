@@ -42,7 +42,8 @@ const eventsSchema = mongoose.Schema({
   end_date: Date,
   candidate_email: String,
   employer_email: String,
-  status: String
+  status: String,
+  allDay: Boolean,
 });
 
 module.exports = {

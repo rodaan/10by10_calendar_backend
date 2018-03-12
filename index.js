@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // const cors = require('cors')
 const server = express();
-const {createEvent, getCandidateEvents} = require('./db_functions/functions');
+const {createEvent, getCandidateEvents, updateEvent} = require('./db_functions/functions');
 
 // server.use(cors);
 server.use(function(req, res, next) {
@@ -42,9 +42,24 @@ db.once('open', function() {
   server.post('/events', (req, res) => {
     console.log(req.body);
     createEvent(req.body, (err, event) => {
-      res.send(event);
+      if(err){
+        res.send(err);
+      } else {
+        res.send(event);
+      }
     });
   });
+
+  server.post('/events/:event_id', (req, res) => {
+    console.log(req.params);
+    updateEvent(req.query.id, (err, event) => {
+      if(err){
+        res.send(err);
+      } else {
+        res.send(event);
+      }
+    });
+  })
 
   server.listen(4000, () => {
     console.log('Listening on post 4000');
